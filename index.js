@@ -1,36 +1,26 @@
-class Persona {
-    constructor(nombre, apellido, libros, mascotas){
-        this.nombre = nombre
-        this.apellido = apellido
-        this.libros = libros
-        this.mascotas = mascotas
-    
-    }
+let Persona = require('./classes/index.js')
 
-    getFullName = ()=>{
-        return `Nombre: ${this.nombre}, Apellido: ${this.apellido}`
-    }
+const firstPerson = new Persona('jesús',
+                             'Rodriguez',
+                            [
+                                {
+                                'nombre': 'Maze Runner',
+                                'autor' : 'James Dashner'
+                                },
+                                {
+                                    'nombre': 'El señor de los Anillos',
+                                    'autor' : 'J. R. R. Tolkien'
+                                },
+                                {
+                                    'nombre': 'Harry Potter',
+                                    'autor' : 'J. K. Rowling'
+                                }
+                            ] ,
+                            ['Pepe', 'Tobi', 'Alma', 'Nina'])
 
-    addMascotas = (nuevo)=>{
-        this.mascotas.push(nuevo)
-    }
+console.log(firstPerson.getFullName())
+console.log(firstPerson.addMascotas('pupi'))
+console.log(firstPerson.countMascotas())
+console.log(firstPerson.addBook('Ansiedad: Miedo, esperanza y la búsqueda de la paz interior', 'Scott Stossel'))
+console.log('nombres:' + firstPerson.getBookNames())
 
-    countMascotas = ()=>{
-        let total = this.mascotas.length
-
-        return total
-    }
-
-    addBook = (nombre, autor)=>{
-        this.libros.push({
-            nombre: nombre,
-            autor: autor
-        })
-    }
-
-    getBookNames = ()=>{
-        return this.libros.nombre
-    }
-
-    
-}
