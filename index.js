@@ -26,17 +26,16 @@ const firstPerson = new Persona('jesús',
 //console.log('nombres:' + firstPerson.getBookNames())
 
 
-const json = [{
+const json = {
     title : 'Escuadra',
-    price : 123.45    
-}]
+    price : 123.40    
+}
 
 
 const json2 = {
     title : 'Escuadra',
-    price : 123.45    
+    price : 123.40    
 }
 const prueba = new Contenedor('contenedor')
 
-//prueba.save(json)
-prueba.save(json2)
+prueba.save(json)
