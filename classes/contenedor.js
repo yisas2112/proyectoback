@@ -5,13 +5,12 @@ module.exports = class Contenedor {
     this.nombre = nombre
   }
 
-  async save(objeto){    
+  save(objeto){    
     let obj ={}      
     let array = []
     let lastId = 0
       if(fs.existsSync(`./${this.nombre}.json`)){        
-        let data = fs.readFileSync(`./${this.nombre}.json`)                    
-        array= JSON.parse(data)        
+        array = JSON.parse(fs.readFileSync(`./${this.nombre}.json`))
         array.map((e)=>{
           lastId = e.id
         })
@@ -24,29 +23,20 @@ module.exports = class Contenedor {
         
         array.push(obj)        
 
-        fs.writeFile(`./${this.nombre}.json`, JSON.stringify(array) , e =>{
-          if(e){
-            console.log('Hubo un error al agregar el objeto al archivo')
-          }else
-          {
-            console.log('Se agregó el obj correctamente al json')
-          }
+        fs.writeFile(`./${this.nombre}.json`, JSON.stringify(array) , err =>{
+          err ? console.log('Hubo un error al agregar el objeto al archivo') : console.log('Se agregó el obj correctamente al json')         
         })    
       }else{                  
           obj = {
             title : objeto.title,
             price : objeto.price,
-            id : 1
+            id : lastId + 1
           }          
           array.push(obj)
           
-          fs.appendFileSync(`./${this.nombre}.json`, JSON.stringify(array) , e =>{
-            if(e){
-              console.log('Ocurrió un error al crear el archivo')
-            }else
-            {
-              console.log('Se creó el archivo con éxito')
-            }
+          fs.appendFileSync(`./${this.nombre}.json`, JSON.stringify(array) , err =>{
+            err ? console.log('Ocurrió un error al crear el archivo') : console.log('Se creó el archivo con éxito')
+            
           })    
       }
     }
@@ -54,23 +44,19 @@ module.exports = class Contenedor {
     getById(id){      
       let array = []
       let dataReturn
-      let data = fs.readFileSync(`./${this.nombre}.json`)                    
-        array= JSON.parse(data)        
+      array = JSON.parse(fs.readFileSync(`./${this.nombre}.json`))      
         array.map((data)=>{          
-          if(data.id == id){
-            dataReturn = data
-          }
+          data.id == id ? (dataReturn = data) : dataReturn = 'El elemento no existe'          
         })
         
         return console.log(dataReturn)
     }
 
-    getAll(){
-      let array = []      
-      let data = fs.readFileSync(`./${this.nombre}.json`)                    
-      array= JSON.parse(data)       
-
-      console.log(array)
+    getAll(){            
+      let array = JSON.parse(fs.readFileSync(`./${this.nombre}.json`))                    
+       array.length == 0 ? console.log('No se encontraron elementos dentro del archivo') : console.log(array)
+      
+      
 
     }
 
@@ -86,26 +72,17 @@ module.exports = class Contenedor {
           }
         })
 
-        fs.writeFile(`./${this.nombre}.json`, JSON.stringify(newArry) , e =>{
-          if(e){
-            console.log('Ocurrió un error al eliminar el elemento')
-          }else
-          {
-            console.log('Se eliminó el objeto correctamente')
-          }
+        fs.writeFile(`./${this.nombre}.json`, JSON.stringify(newArry) , err =>{
+          err ? console.log('Ocurrió un error al eliminar el elemento') : console.log('Se eliminó el objeto correctamente')
         })    
     }
 
     deleteAll(){
       let arrayVacio = []
 
-      fs.writeFile(`./${this.nombre}.json`, JSON.stringify(arrayVacio) , e =>{
-        if(e){
-          console.log('Ocurrió un error al eliminar todos los elementos')
-        }else
-        {
-          console.log('Se eliminaron todos los elementos')
-        }
+      fs.writeFile(`./${this.nombre}.json`, JSON.stringify(arrayVacio) , err =>{
+        err ? console.log('Ocurrió un error al eliminar todos los elementos') : console.log('Se eliminaron todos los elementos')
+     
       })    
 
     }

@@ -45,13 +45,13 @@ const content = new Contenedor('contenedor')
 //content.save(json)
 
 //Se obtienen el elemento según ID
-//content.getById(1)
+content.getById(2)
 
 //Se obtiene todos los elementos del archivo.
 //content.getAll()
 
 //Se elimina un elemento según su ID
-//content.deleteById(1)
+//content.deleteById(2)
 
 //Elimino todos los elementos
 //content.deleteAll()
